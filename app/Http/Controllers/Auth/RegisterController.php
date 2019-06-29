@@ -76,5 +76,9 @@ class RegisterController extends Controller
             'captcha.required' => '验证码不能为空',
             'captcha.captcha' => '请输入正确的验证码',
         ]);
+
+        Auth::login($user);
+        session()->flash('success', '欢迎，您将在这里开启一段新的旅程~');
+        return redirect('/');
     }
 }
