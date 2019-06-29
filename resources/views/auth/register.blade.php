@@ -26,6 +26,34 @@
                         </div>
 
                         <div class="form-group row">
+                          <label for="phone" class="col-md-4 col-form-label text-md-right">手机号</label>
+
+                          <div class="col-md-6">
+                            <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="phone" autofocus>
+
+                            @error('phone')
+                            <span class="invalid-feedback" role="alert">
+                                          <strong>{{ $message }}</strong>
+                                      </span>
+                            @enderror
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <label for="worker_id" class="col-md-4 col-form-label text-md-right">工号</label>
+
+                          <div class="col-md-6">
+                            <input id="worker_id" type="text" class="form-control @error('worker_id') is-invalid @enderror" name="worker_id" value="{{ old('worker_id') }}" required autocomplete="worker_id" autofocus>
+
+                            @error('worker_id')
+                            <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                            @enderror
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-6">
@@ -59,6 +87,22 @@
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <label for="captcha" class="col-md-4 col-form-label text-md-right">验证码</label>
+
+                          <div class="col-md-6">
+                            <input id="captcha" class="form-control{{ $errors->has('captcha') ? 'is-invalid' : '' }}" name="captcha" required>
+
+                            <img class="thumbnail captcha mt-3 mb-2" src="{{ captcha_src('flat') }}" onclick="this.src='/captcha/flat?'+Math.random()" title="点击图片重新获取验证码">
+
+                            @if($errors->has('captcha'))
+                              <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('captcha') }}</strong>
+                              </span>
+                            @endif
+                          </div>
                         </div>
 
                         <div class="form-group row mb-0">

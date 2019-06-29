@@ -50,6 +50,8 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'string','min:8|max:16','unique:users'],
+            'worker_id' => ['required', 'string','min:6|max:16','unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -65,8 +67,14 @@ class RegisterController extends Controller
     {
         return User::create([
             'name' => $data['name'],
+            'phone' => $data['phone'],
+            'worker_id' => $data['worker_id'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'captcha' => ['required', 'captcha'],
+        ], [
+            'captcha.required' => '验证码不能为空',
+            'captcha.captcha' => '请输入正确的验证码',
         ]);
     }
 }
